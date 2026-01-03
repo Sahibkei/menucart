@@ -69,9 +69,10 @@ export default function SignupPage() {
         const data = await res.json().catch(() => ({}));
         const validation = (data?.details as Record<string, { _errors?: string[] }>) || {};
         const formatted: FieldErrors = {};
-        Object.entries(validation).forEach(([field, info]) => {
+        (Object.keys(validation) as Array<keyof RegistrationPayload>).forEach((key) => {
+          const info = validation[key];
           if (info?._errors?.length) {
-            formatted[field] = info._errors[0];
+            formatted[key] = info._errors[0];
           }
         });
         setErrors(formatted);
