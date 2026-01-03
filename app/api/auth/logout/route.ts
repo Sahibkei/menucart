@@ -4,7 +4,9 @@ import { NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 export async function POST() {
-  cookies().set("mc_session", "", {
+  const cookieStore = await cookies();
+
+  cookieStore.set("mc_session", "", {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",

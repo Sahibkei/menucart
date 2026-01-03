@@ -5,7 +5,8 @@ import { verifySession } from "@/lib/auth";
 export const runtime = "nodejs";
 
 export async function GET() {
-  const sessionCookie = cookies().get("mc_session");
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get("mc_session");
 
   if (!sessionCookie?.value) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });

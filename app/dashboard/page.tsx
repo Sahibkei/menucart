@@ -5,7 +5,8 @@ import { verifySession } from "@/lib/auth";
 import { LogoutButton } from "./LogoutButton";
 
 async function getSession() {
-  const token = cookies().get("mc_session")?.value;
+  const cookieStore = await cookies();
+  const token = cookieStore.get("mc_session")?.value;
   if (!token) return null;
   return verifySession(token);
 }

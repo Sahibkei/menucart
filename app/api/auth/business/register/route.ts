@@ -88,7 +88,9 @@ export async function POST(request: Request) {
       businessName: account.businessName,
     });
 
-    cookies().set("mc_session", token, {
+    const cookieStore = await cookies();
+
+    cookieStore.set("mc_session", token, {
       httpOnly: true,
       sameSite: "lax",
       secure: process.env.NODE_ENV === "production",

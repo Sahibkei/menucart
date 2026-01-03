@@ -3,12 +3,13 @@ import { connectDB } from "@/lib/db";
 import { BusinessAccount } from "@/lib/models/business";
 
 interface PageProps {
-  params: { username: string };
+  params: Promise<{ username: string }>;
 }
 
 export default async function BusinessProfilePage({ params }: PageProps) {
+  const { username } = await params;
   await connectDB();
-  const businessDoc = await BusinessAccount.findOne({ username: params.username, status: "active" });
+  const businessDoc = await BusinessAccount.findOne({ username, status: "active" });
 
   if (!businessDoc) {
     notFound();
