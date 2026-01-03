@@ -279,7 +279,15 @@ export default function SignupPage() {
                 onChange={(e) => updateField("acceptTerms", e.target.checked)}
               />
               <span>
-                I agree to the <a className="text-indigo-600" href="#">Terms of Service</a> and <a className="text-indigo-600" href="#">Privacy Policy</a>.
+                I agree to the{" "}
+                <a className="text-indigo-600" href="/terms">
+                  Terms of Service
+                </a>{" "}
+                and{" "}
+                <a className="text-indigo-600" href="/privacy">
+                  Privacy Policy
+                </a>
+                .
               </span>
             </label>
           </div>
