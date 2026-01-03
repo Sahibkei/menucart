@@ -4,8 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
-type FieldErrors = Record<string, string>;
-
 type RegistrationPayload = {
   businessName: string;
   username: string;
@@ -17,6 +15,8 @@ type RegistrationPayload = {
   confirmPassword: string;
   acceptTerms: boolean;
 };
+
+type FieldErrors = Partial<Record<keyof RegistrationPayload, string>>;
 
 const defaultPayload: RegistrationPayload = {
   businessName: "",
@@ -43,7 +43,11 @@ export default function SignupPage() {
 
   const updateField = (key: keyof RegistrationPayload, value: string | boolean) => {
     setFormState((prev) => ({ ...prev, [key]: value } as RegistrationPayload));
-    setErrors((prev) => ({ ...prev, [key]: undefined }));
+    setErrors((prev) => {
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
